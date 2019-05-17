@@ -6,11 +6,15 @@ For long-term analysis, you can use ExPerfwiz for example at https://github.com/
 https://github.com/microsoft/ExPerfWiz
 
 #>
+[CmdLetBinding(DefaultParameterSetName = "NormalRun")]
+Param(
+    [Parameter(Mandatory = $False, Position = 1, ParameterSetName = "NormalRun")] $Server
+)
+
 
 $OutputFile = "c:\temp\CrawlCounters$(get-date -F "yyyMMdd-HHmmss").csv"
 
-#$Server = "O-EX-MAIL-01"
-$Server = "E2010"
+#$Server = "E2010"
 if ($Server -ne $Null){$Server = ("\\") + $Server}
 
 $Counters = @(
