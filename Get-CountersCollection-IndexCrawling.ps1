@@ -8,14 +8,14 @@ https://github.com/microsoft/ExPerfWiz
 #>
 [CmdLetBinding(DefaultParameterSetName = "NormalRun")]
 Param(
-    [Parameter(Mandatory = $False, Position = 1, ParameterSetName = "NormalRun")] $Server
+    [Parameter(Mandatory = $False, Position = 1, ParameterSetName = "NormalRun")] $Server = ""
 )
 
 
-$OutputFile = "$($env:userprofile)\desktop\c:\temp\CrawlCounters$(get-date -F "yyyMMdd-HHmmss").csv"
+$OutputFile = "$($env:userprofile)\desktop\CrawlCounters$(get-date -F "yyyMMdd-HHmmss").csv"
 
-#$Server = "E2010"
-if ($Server -ne $Null){$Server = ("\\") + $Server} else {$Server = ""}
+
+if ($Server -ne ""){$Server = ("\\") + $Server} else {$Server = ""}
 
 $Counters = @(
 "$Server\MSExchange Search Indexer\Number of Databases Being Crawled",
@@ -41,6 +41,7 @@ $Counters = @(
 "$Server\MSExchange Search Indices(*)\Number of Outstanding Batches",
 "$Server\MSExchange Search Indices(*)\Number of Outstanding Crawler Batches",
 "$Server\Processor Information(_Total)\% Processor Time")
+
 
 Get-Counter -Counter $Counters -MaxSamples 5 | ForEach {
     $_.CounterSamples | ForEach {
