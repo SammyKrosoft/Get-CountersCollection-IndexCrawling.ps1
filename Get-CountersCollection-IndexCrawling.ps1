@@ -12,7 +12,7 @@ Param(
 )
 
 
-$OutputFile = "c:\temp\CrawlCounters$(get-date -F "yyyMMdd-HHmmss").csv"
+$OutputFile = "$($env:userprofile)\desktop\c:\temp\CrawlCounters$(get-date -F "yyyMMdd-HHmmss").csv"
 
 #$Server = "E2010"
 if ($Server -ne $Null){$Server = ("\\") + $Server}
